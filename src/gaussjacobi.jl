@@ -1,4 +1,4 @@
-function gaussjacobi(n::Int64, a, b)
+function gaussjacobi(n::Int32, a, b)
 #GAUSS-JACOBI QUADRATURE NODES AND WEIGHTS
 
     if ( a == 0 && b == 0 )
@@ -26,7 +26,7 @@ function gaussjacobi(n::Int64, a, b)
 end
 
 
-function JacobiRec(n::Int64, a::Float64, b::Float64)
+function JacobiRec(n::Int32, a::Float64, b::Float64)
 #Compute nodes and weights using recurrrence relation.
     x1 = HalfRec(n, a, b, 1)
     x2 = HalfRec(n, b, a, 0) 
@@ -57,7 +57,7 @@ function HalfRec(n::Int64, a::Float64, b::Float64, flag)
     return x, P[2]
 end
 
-function innerJacobiRec(n::Int64, x::Array{Float64}, a::Float64, b::Float64)
+function innerJacobiRec(n::Int32, x::Array{Float64}, a::Float64, b::Float64)
 # EVALUATE JACOBI POLYNOMIALS AND ITS DERIVATIVE USING THREE-TERM RECURRENCE.
     #P, Pm1, PP, PPm1 = [.5*(a-b+(a+b+2)*x)], ones(x), .5*(a+b+2)*ones(x), zeros(x)
     N = length(x)
@@ -76,7 +76,7 @@ function innerJacobiRec(n::Int64, x::Array{Float64}, a::Float64, b::Float64)
     return P, PP
 end
 
-function weightsConstant( n::Int64, a::Float64, b::Float64 )
+function weightsConstant( n::Int32, a::Float64, b::Float64 )
     # Compute the constant for weights:
     M = min(20, n-1)
     C = 1.0 
@@ -89,7 +89,7 @@ function weightsConstant( n::Int64, a::Float64, b::Float64 )
     return 2^(a+b+1)*C
 end
 
-function JacobiAsy(n::Int64, a::Float64, b::Float64)
+function JacobiAsy(n::Int32, a::Float64, b::Float64)
 #ASY   Compute nodes and weights using asymptotic formulae.
 
     # Determine switch between interior and boundary regions:
@@ -117,7 +117,7 @@ function JacobiAsy(n::Int64, a::Float64, b::Float64)
     return x[:], w[:]
 end
 
-function asy1(n::Int64, a::Float64, b::Float64, nbdy)
+function asy1(n::Int32, a::Float64, b::Float64, nbdy)
 # Algorithm for computing nodes and weights in the interior.
 
     # Approximate roots via asymptotic formula: (Gatteschi and Pittaluga, 1985)
@@ -169,7 +169,7 @@ function asy1(n::Int64, a::Float64, b::Float64, nbdy)
     return x, w
 end
 
-function feval_asy1(n::Int64, a::Float64, b::Float64, t, idx, flag)
+function feval_asy1(n::Int32, a::Float64, b::Float64, t, idx, flag)
 # Evaluate the interior asymptotic formula at x = cos(t).
     
     # Number of terms in the expansion:
@@ -293,7 +293,7 @@ function feval_asy1(n::Int64, a::Float64, b::Float64, t, idx, flag)
     return (vals, ders)
 end
 
-function boundary(n::Int64, a::Float64, b::Float64, npts)
+function boundary(n::Int32, a::Float64, b::Float64, npts)
 # Algorithm for computing nodes and weights near the boundary.
 
     # Use Newton iterations to find the first few Bessel roots:
@@ -336,7 +336,7 @@ function boundary(n::Int64, a::Float64, b::Float64, npts)
     return x, w
 end
 
-function besselRoots(nu::Float64, m::Int64)
+function besselRoots(nu::Float64, m::Int32)
 # BESSELROOTS(NU, M) returns the first M roots of besselj(nu, x).
 # Find an approximation:
     jk = Array(Float64, m) 
