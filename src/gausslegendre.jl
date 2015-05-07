@@ -1,4 +1,4 @@
-function gausslegendre( n::Int64 )
+function gausslegendre( n::Int32 )
 # GAUSSLEGENDRE(n)  COMPUTE THE GAUSS-LEGENDRE NODES AND WEIGHTS IN O(n) time.
 
 if n < 0
@@ -55,15 +55,15 @@ elseif n == 5
     x = (x, w);
 elseif n <= 60 
 # NEWTON'S METHOD WITH THREE-TERM RECURRENCE:   
-    x = rec( n::Int64 )
+    x = rec( n::Int32 )
 else
 # USE ASYMPTOTIC EXPANSIONS:
-    x = asy( n::Int64 )
+    x = asy( n::Int32 )
 end
     return x   # nodes and weights in tuple. 
 end
 
-function asy( n::Int64 )
+function asy( n::Int32 )
 # COMPUTE GAUSS-LEGENDRE NODES AND WEIGHTS USING ASYMPTOTIC EXPANSIONS. COMPLEXITY O(n). 
     # Nodes and weights:
     m = (mod(n,2)==0) ? n>>1 : (n+1)>>1
@@ -82,7 +82,7 @@ function asy( n::Int64 )
     return x, w
 end
 
-function legpts_nodes(n::Int64, a::Array{Float64})
+function legpts_nodes(n::Int32, a::Array{Float64})
 # ASYMPTOTIC EXPANSION FOR THE GAUSS-LEGENDRE NODES.
     vn = 1/(n + 0.5)
     m = length(a)
@@ -96,7 +96,7 @@ function legpts_nodes(n::Int64, a::Array{Float64})
     return nodes
 end
 
-function legpts_weights(n::Int64, m::Int64, a::Array{Float64})
+function legpts_weights(n::Int32, m::Int32, a::Array{Float64})
 # ASYMPTOTIC EXPANSION FOR THE GAUSS-LEGENDRE WEIGHTS.
     vn = 1/(n + 0.5);
     u = Array(Float64,m); ua = Array(Float64,m); weights = Array(Float64,m)
@@ -118,7 +118,7 @@ function legpts_weights(n::Int64, m::Int64, a::Array{Float64})
     return weights
 end
 
-function rec( n::Int64 ) 
+function rec( n::Int32 ) 
 # COMPUTE GAUSS-LEGENDRE NODES AND WEIGHTS USING NEWTON'S METHOD. THREE-TERM RECURENCE 
 # IS USED FOR EVALUATION. COMPLEXITY O(n^2). 
     hN = mod(n,2)
@@ -135,7 +135,7 @@ function rec( n::Int64 )
     return nodes, weights
 end
 
-function innerRec( n::Int64, x )
+function innerRec( n::Int32, x )
 # EVALUATE LEGENDRE AND ITS DERIVATIVE USING THREE-TERM RECURRENCE RELATION.
     N = size(x,1) 
     myPm1 = Array(Float64,N); myPPm1 = Array(Float64,N) 
@@ -152,7 +152,7 @@ function innerRec( n::Int64, x )
 end
 
 
-function besselZeroRoots(m::Int64)
+function besselZeroRoots(m::Int32)
 #BESSEL0ROOTS ROOTS OF BESSELJ(0,x). USE ASYMPTOTICS.
 # Use McMahon's expansion for the remainder (NIST, 10.21.19):
     jk = Array(Float64,m); ak = Array(Float64,m); ak82 = Array(Float64,m)
@@ -176,7 +176,7 @@ function besselZeroRoots(m::Int64)
 end
 
 
-function besselJ1( m::Int64 )
+function besselJ1( m::Int32 )
 # BESSELJ1 EVALUATE BESSELJ(1,x)^2 AT ROOTS OF BESSELJ(0,x). USE ASYMPTOTICS.
 # Use Taylor series of (NIST, 10.17.3) and McMahon's expansion (NIST, 10.21.19):
     Jk2 = Array(Float64,m); ak = Array(Float64,m); ak2 = Array(Float64,m)
