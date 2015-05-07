@@ -1,4 +1,4 @@
-function gausschebyshev( n::Int64, kind::Int64=1 )
+function gausschebyshev( n::Int32, kind::Int32=1 )
 # GAUSS-CHEBYSHEV NODES AND WEIGHTS. 
 
 x = (Array(Float64,n), Array(Float64,n))
