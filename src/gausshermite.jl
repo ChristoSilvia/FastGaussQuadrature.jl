@@ -1,4 +1,4 @@
-function gausshermite( n::Int64 )
+function gausshermite( n::Int32 )
 # GAUSSHERMITE(n) COMPUTE THE GAUSS-HERMITE NODES AND WEIGHTS IN O(n) time. 
 
 
