@@ -1,4 +1,4 @@
-module FastGaussQuadrature
+module FastGaussQuadrature32
    using Base
 
 export gausslegendre 
