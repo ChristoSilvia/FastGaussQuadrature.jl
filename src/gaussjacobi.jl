@@ -37,7 +37,7 @@ function JacobiRec(n::Int32, a::Float64, b::Float64)
     return x, w
 end
 
-function HalfRec(n::Int64, a::Float64, b::Float64, flag)
+function HalfRec(n::Int32, a::Float64, b::Float64, flag)
 #HALFREC   Jacobi polynomial recurrence relation.
     # Asymptotic formula - only valid for positive x.
     r = (flag==1) ? [ceil(n/2):-1:1] : [floor(n/2):-1:1]
